@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">JG.ZUT.Lab01B</string>
+    <string name="app_name">JG.ZUT.Laboratorium01B</string>
     <string name="title">Polatanki motocyklowe</string>
     <string name="mainContent">Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych.         Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..</string>
 </resources>
