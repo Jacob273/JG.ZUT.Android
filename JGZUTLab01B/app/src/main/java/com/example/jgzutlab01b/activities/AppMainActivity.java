@@ -1,12 +1,11 @@
 package com.example.jgzutlab01b.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.jgzutlab01b.R;
@@ -31,4 +30,12 @@ public class AppMainActivity extends AppCompatActivity {
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
+    public void onClick(View view) {
+
+        Intent myIntent = new Intent(AppMainActivity.this, BmiCalculatorActivity.class);
+        //myIntent.putExtra("key", null); //Optional parameters
+        AppMainActivity.this.startActivity(myIntent);
+
+
+    }
 }

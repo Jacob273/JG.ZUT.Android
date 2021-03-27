@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name">JG.ZUT.Laboratory01B</string>
-    <string name="title">Motorcycle meetings</string>
-    <string name="mainContent">A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives.\n\n
+    <string name="MainView_title">Motorcycle meetings</string>
+    <string name="MainView_MainContent">A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives.\n\n
                                 A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives.\n\n
                                 A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives.\n\n
                                 A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives.\n\n
                                 A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives.\n\n
-                                A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives...
+                                A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives...\n\n
                                 source: http://pngimg.com/image/5342
     </string>
+    <string name="Bmi_Calculator_WeightLabel">Weight:</string>
+    <string name="Bmi_Calulcator_HeightLabel">Height:</string>
+    <string name="BMI_Calculator_Gender">Gender:</string>
+    <string name="BMI_Calculator_MaleRadioBox">Male</string>
+    <string name="BMI_Calculator_FemaleRadioBox">Female</string>
+    <string name="BMI_Calculator_BmiTitle">B M I</string>
+    <string name="BMI_Calculator_CalculateButtonText">Calculate</string>
 </resources>

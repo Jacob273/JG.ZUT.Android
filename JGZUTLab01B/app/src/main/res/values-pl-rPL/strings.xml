@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">JG.ZUT.Laboratorium01B</string>
-    <string name="title">Polatanki motocyklowe</string>
-    <string name="mainContent">Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..\n\n
+    <string name="MainView_title">Polatanki motocyklowe</string>
+    <string name="MainView_MainContent">Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..\n\n
                                 Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..\n\n
                                 Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..\n\n
                                 Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..\n\n
                                 Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia..\n\n
-                                Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia...
+                                Grupa na facebooku, której głównym celem jest organizacja wydarzeń/wypraw motocyklowych. Zrzesza grupę ludzi, dla których wyprawy motocyklowe są istotnym elementem życia...\n\n
                                 źródło: http://pngimg.com/image/5342
     </string>
+    <string name="Bmi_Calculator_WeightLabel">Waga</string>
+    <string name="Bmi_Calulcator_HeightLabel">Wzrost:</string>
 </resources>

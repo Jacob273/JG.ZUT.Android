@@ -12,13 +12,14 @@
             android:textAlignment="center"
             android:textSize="32dp"
             android:textColor="@color/black"
-            android:text="@string/title">
+            android:text="@string/MainView_title">
     </TextView>
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:padding="10dp"
+        android:onClick="onClick"
         android:src="@drawable/moto_main">
     </ImageView>
 
@@ -32,7 +33,7 @@
         android:layout_height="496dp"
         android:layout_gravity="center_horizontal"
         android:padding="16dp"
-        android:text="@string/mainContent"
+        android:text="@string/MainView_MainContent"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:scrollbars="vertical"
