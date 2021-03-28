@@ -9,8 +9,8 @@
                                 A group on Facebook, whose main goal is to organize motorcycle events / expeditions. It brings together a group of people for whom motorcycle expeditions are an essential part of their lives...\n\n
                                 source: http://pngimg.com/image/5342
     </string>
-    <string name="Bmi_Calculator_WeightLabel">Weight: </string>
-    <string name="Bmi_Calulcator_HeightLabel">Height:</string>
+    <string name="Bmi_Calculator_WeightLabel">Weight [kg]: </string>
+    <string name="Bmi_Calculator_HeightLabel">Height [m]:</string>
     <string name="BMI_Calculator_Gender">Gender:</string>
     <string name="BMI_Calculator_MaleRadioBox">Male</string>
     <string name="BMI_Calculator_FemaleRadioBox">Female</string>

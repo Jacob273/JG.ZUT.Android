@@ -39,16 +39,17 @@
             </TextView>
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/bmi_radioGroupGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <RadioButton android:id="@+id/radio_pirates"
+                <RadioButton android:id="@+id/bmi_radioMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/BMI_Calculator_MaleRadioBox"/>
 
-                <RadioButton android:id="@+id/radio_ninjas"
+                <RadioButton android:id="@+id/bmi_radioFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/BMI_Calculator_FemaleRadioBox"/>
@@ -61,16 +62,19 @@
         android:layout_height="wrap_content"
         android:padding="3dp">
 
-        <TextView android:layout_width="100dp"
+        <TextView android:layout_width="120dp"
                   android:layout_height="40dp"
                   android:textSize="20dp"
-            android:gravity="center"
+                  android:gravity="center"
                   android:text="@string/Bmi_Calculator_WeightLabel">
         </TextView>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:digits="0123456789."
+            android:inputType="number"
+            android:id="@+id/Bmi_WeightText">
         </EditText>
     </LinearLayout>
 
@@ -79,23 +83,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp">
-            <TextView android:layout_width="100dp"
+            <TextView android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:textSize="20dp"
+
                 android:gravity="center"
-                android:text="@string/Bmi_Calulcator_HeightLabel">
+                android:text="@string/Bmi_Calculator_HeightLabel">
             </TextView>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:digits="0123456789."
+                android:inputType="number"
+                android:id="@+id/Bmi_HeightText">
             </EditText>
         </LinearLayout>
 
 
        <Button android:layout_width="match_parent"
                android:layout_height="40dp"
-               android:text="@string/BMI_Calculator_CalculateButtonText">
+               android:text="@string/BMI_Calculator_CalculateButtonText"
+               android:id="@+id/Bmi_CalculateButton">
        </Button>
 
     </LinearLayout>
