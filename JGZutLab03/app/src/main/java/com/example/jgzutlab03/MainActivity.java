@@ -11,6 +11,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.CompoundButton;
 
 import com.example.jgzutlab03.spatial.LocationServiceWrapper;
 import com.example.jgzutlab03.uiMessages.Messenger;
@@ -30,15 +32,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            listenForCheckboxChanged();
 
-            _locationServiceWrapper = new LocationServiceWrapper(this, (location) ->
+        _locationServiceWrapper = new LocationServiceWrapper(this, (location) ->
             {
-                try {
-                    Messenger.DisplayToast("LAT:" + location.getLatitude(), this);
-
-                    NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-                    CreateChannelIfRequired(notificationManager);
-                    SendGeoNotification(location, notificationManager);
+                try
+                {
+                        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+                        CreateChannelIfRequired(notificationManager);
+                        SendGeoNotification(location, notificationManager);
                 }
                 catch(Exception ex)
                 {
@@ -52,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             _onOffReceiver = new OnOffPowerReceiver(this, () -> {
-                Messenger.DisplayToast("Charger Connected...", this);
-                _locationServiceWrapper.tryRequestCurrentLocation();
+                    Messenger.DisplayToast("Charger Connected...", this);
+                    _locationServiceWrapper.tryRequestCurrentLocation();
             }, ()->
             {
                 Messenger.DisplayToast("Charger Disconnected...", this);
@@ -61,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
+    private void listenForCheckboxChanged() {
+        this.findViewById(R.id.canToastCheckBox).setOnClickListener(v -> {
+            Messenger.canToast = ((CompoundButton) v).isChecked();
+        });
+    }
 
     private void SendGeoNotification(Location location, NotificationManager notificationManager) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
