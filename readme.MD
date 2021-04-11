@@ -10,7 +10,7 @@ Lab01 - prosty layout i dwa tłumaczenia tekstu: pl i en.
 Lab02 - komunikacja między dwoma widokami.
 
 
-# Labb03
+# Lab03
 ![Lab01](./lab03.gif)
 
 Lab03 - Wykrywanie podłączonej ładowarki, toast, odczyt aktualnej lokalizacji GPS
