@@ -6,9 +6,6 @@ public class MovableBall {
 
     private static MovableBall _instance;
 
-    private MovableBall() {
-    }
-
     public static MovableBall getInstance() {
         if(_instance == null) {
             _instance = new MovableBall();

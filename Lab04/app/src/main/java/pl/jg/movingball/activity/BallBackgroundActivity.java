@@ -16,8 +16,11 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import pl.jg.movingball.helpers.Collider;
+import pl.jg.movingball.helpers.ForceHandler;
 import pl.jg.movingball.helpers.MovableBall;
 import pl.jg.movingball.helpers.Bounds;
+import pl.jg.movingball.helpers.MoveMode;
 
 public class BallBackgroundActivity extends Activity implements SensorEventListener
 {
@@ -148,12 +151,11 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
         {
             //System.out.println(String.format("sensor wychylenie X: <{%f}>", BallBackgroundActivity.sensorValueX));
             //System.out.println(String.format("sensor wychylenie Y: <{%f}>", BallBackgroundActivity.sensorValueY));
-            Integer currentTouchingState = Bounds.getInstance().checkTouchingState(MovableBall.getInstance());
-
             if(firstTimeDrawn == true)
             {
                 setDefaultBallValuesTopLeft();
                 circle = MovableBall.getInstance().AsRectf();
+                Collider.getInstance().setBall(MovableBall.getInstance());
                 p = new Paint();
                 p.setColor(Color.GREEN);
                 Bounds.getInstance().setMargin(ballHeight);
@@ -162,33 +164,53 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
                 firstTimeDrawn = false;
             }
 
-            if(hasSensorValueYChanged(BallBackgroundActivity.sensorValueY))
-            {
-                if(pointingUpwards(BallBackgroundActivity.sensorValueY) && !((currentTouchingState & Bounds.BOTTOM) == Bounds.BOTTOM))
-                {
-                    //System.out.println("Pointing upwards");
-                    MovableBall.getInstance().moveDown(BallBackgroundActivity.sensorValueY);
+            Integer currentTouchingState = Bounds.getInstance().checkTouchingState(MovableBall.getInstance());
+            Collider.getInstance().setTouchingState(currentTouchingState);
+            MoveMode moveMode = Collider.getInstance().getMode();
+
+            if(moveMode == MoveMode.FreeFall) {
+                if (hasSensorValueYChanged(BallBackgroundActivity.sensorValueY)) {
+                    if (pointingUpwards(BallBackgroundActivity.sensorValueY) && !((currentTouchingState & Bounds.BOTTOM) == Bounds.BOTTOM)) {
+                        //System.out.println("Pointing upwards");
+                        MovableBall.getInstance().moveDown(BallBackgroundActivity.sensorValueY);
+                    }
+                    if (pointingDownwards(BallBackgroundActivity.sensorValueY) && !((currentTouchingState & Bounds.TOP) == Bounds.TOP)) {
+                        //System.out.println("Pointing downwards");
+                        MovableBall.getInstance().moveUp(BallBackgroundActivity.sensorValueY);
+                    }
+
                 }
 
-                if(pointingDownwards(BallBackgroundActivity.sensorValueY) && !((currentTouchingState & Bounds.TOP) == Bounds.TOP))
-                {
-                    //System.out.println("Pointing downwards");
-                    MovableBall.getInstance().moveUp(BallBackgroundActivity.sensorValueY);
+                if (hasSensorValueXChanged(BallBackgroundActivity.sensorValueX)) {
+                    if (pointingRight(BallBackgroundActivity.sensorValueX) && !((currentTouchingState & Bounds.RIGHT) == Bounds.RIGHT)) {
+                        //System.out.println("Pointing to right");
+                        MovableBall.getInstance().moveRight(BallBackgroundActivity.sensorValueX);
+                    }
+                    if (pointingLeft(BallBackgroundActivity.sensorValueX) && !((currentTouchingState & Bounds.LEFT) == Bounds.LEFT)) {
+                        //System.out.println("Pointing to left");
+                        MovableBall.getInstance().moveLeft(BallBackgroundActivity.sensorValueX);
+                    }
                 }
-
             }
+            else{
+                ForceHandler.getInstance().resetForce();
+                float force = ForceHandler.getInstance().getForce();
 
-            if(hasSensorValueXChanged(BallBackgroundActivity.sensorValueX))
-            {
-                if(pointingRight(BallBackgroundActivity.sensorValueX) && !((currentTouchingState & Bounds.RIGHT) == Bounds.RIGHT))
+                if(moveMode == MoveMode.MustTop)
                 {
-                    //System.out.println("Pointing to right");
-                    MovableBall.getInstance().moveRight(BallBackgroundActivity.sensorValueX);
+                    MovableBall.getInstance().moveUp(force);
                 }
-
-                if(pointingLeft(BallBackgroundActivity.sensorValueX) && !((currentTouchingState & Bounds.LEFT) == Bounds.LEFT)) {
-                    //System.out.println("Pointing to left");
-                    MovableBall.getInstance().moveLeft(BallBackgroundActivity.sensorValueX);
+                else if(moveMode == MoveMode.MustBottom)
+                {
+                    MovableBall.getInstance().moveDown(force);
+                }
+                else if((moveMode == MoveMode.MustRight))
+                {
+                    MovableBall.getInstance().moveRight(force);
+                }
+                else if((moveMode == MoveMode.MustLeft))
+                {
+                    MovableBall.getInstance().moveLeft(force);
                 }
             }
 
@@ -200,10 +222,10 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
         }
 
         private void setDefaultBallValuesTopLeft() {
-            MovableBall.getInstance().setX1(0);
-            MovableBall.getInstance().setY1(0);
-            MovableBall.getInstance().setX2(ballWidth);
-            MovableBall.getInstance().setY2(ballHeight);
+            MovableBall.getInstance().setX1(getScreenWidth() / 2);
+            MovableBall.getInstance().setY1(getScreenHeight() / 2);
+            MovableBall.getInstance().setX2(ballWidth + getScreenWidth() / 2);
+            MovableBall.getInstance().setY2(ballHeight + getScreenHeight() / 2);
         }
     }
 
