@@ -148,6 +148,7 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
         {
             //System.out.println(String.format("sensor wychylenie X: <{%f}>", BallBackgroundActivity.sensorValueX));
             //System.out.println(String.format("sensor wychylenie Y: <{%f}>", BallBackgroundActivity.sensorValueY));
+            Integer currentTouchingState = Bounds.getInstance().checkTouchingState(MovableBall.getInstance());
 
             if(firstTimeDrawn == true)
             {
@@ -163,13 +164,13 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
 
             if(hasSensorValueYChanged(BallBackgroundActivity.sensorValueY))
             {
-                if(pointingUpwards(BallBackgroundActivity.sensorValueY))
+                if(pointingUpwards(BallBackgroundActivity.sensorValueY) && !((currentTouchingState & Bounds.BOTTOM) == Bounds.BOTTOM))
                 {
                     //System.out.println("Pointing upwards");
                     MovableBall.getInstance().moveDown(BallBackgroundActivity.sensorValueY);
                 }
 
-                if(pointingDownwards(BallBackgroundActivity.sensorValueY))
+                if(pointingDownwards(BallBackgroundActivity.sensorValueY) && !((currentTouchingState & Bounds.TOP) == Bounds.TOP))
                 {
                     //System.out.println("Pointing downwards");
                     MovableBall.getInstance().moveUp(BallBackgroundActivity.sensorValueY);
@@ -179,19 +180,19 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
 
             if(hasSensorValueXChanged(BallBackgroundActivity.sensorValueX))
             {
-                if(pointingRight(BallBackgroundActivity.sensorValueX))
+                if(pointingRight(BallBackgroundActivity.sensorValueX) && !((currentTouchingState & Bounds.RIGHT) == Bounds.RIGHT))
                 {
                     //System.out.println("Pointing to right");
                     MovableBall.getInstance().moveRight(BallBackgroundActivity.sensorValueX);
                 }
 
-                if(pointingLeft(BallBackgroundActivity.sensorValueX)) {
+                if(pointingLeft(BallBackgroundActivity.sensorValueX) && !((currentTouchingState & Bounds.LEFT) == Bounds.LEFT)) {
                     //System.out.println("Pointing to left");
                     MovableBall.getInstance().moveLeft(BallBackgroundActivity.sensorValueX);
                 }
             }
+
             circle = MovableBall.getInstance().AsRectf();
-            Bounds.getInstance().checkTouchingState(MovableBall.getInstance());
 
             //System.out.println(MovableBall.getInstance().asString());
             canvas.drawOval(circle, p);
