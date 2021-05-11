@@ -79,7 +79,7 @@ public class Bounds {
         {
             _result |= Bounds.LEFT;
         }
-        
+
         return _result;
     }
 }
