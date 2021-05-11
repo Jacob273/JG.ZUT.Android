@@ -60,11 +60,26 @@ public class Bounds {
 
         Integer _result = Bounds.NOONE;
 
-        if( Float.compare(y2, getScreenHeight()) >= 0)
+        if(Float.compare(y2, getScreenHeight()) >= 0)
         {
             _result |= Bounds.BOTTOM;
         }
-        //System.out.println("State:::::: " + _result.byteValue());
+
+        if(Float.compare(x2, getScreenWidth()) >= 0)
+        {
+            _result |= Bounds.RIGHT;
+        }
+
+        if(Float.compare(y1, 0) <= 0)
+        {
+            _result |= Bounds.TOP;
+        }
+
+        if(Float.compare(x1, 0) <= 0)
+        {
+            _result |= Bounds.LEFT;
+        }
+        
         return _result;
     }
 }
