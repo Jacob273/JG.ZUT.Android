@@ -2,43 +2,69 @@ package pl.jg.movingball.helpers;
 
 public class Bounds {
 
+    public static final int NOONE = 0;  // 0000
+    public static final int LEFT = 1;  // 0001
+    public static final int RIGHT   = 2;  // 0010
+    public static final int TOP = 4;  // 0100
+    public static final int BOTTOM = 8;  // 1000
+
+    private float screenHeight;
+    private float screenWidth;
+    private float margin;
+    private static Bounds _instance;
+
+    private Bounds() {
+    }
+
+    public static Bounds getInstance() {
+        if (_instance == null) {
+            _instance = new Bounds();
+        }
+        return _instance;
+    }
+
     static final double THRESHOLD = .001;
 
-    public static float getHeight() {
-        return height;
+    public float getScreenHeight() {
+        return screenHeight;
     }
 
-    public static void setHeight(float height) {
-        Bounds.height = height;
+    public void setScreenHeight(float screenHeight) {
+        this.screenHeight = screenHeight;
     }
 
-    public static float getWidth() {
-        return width;
+    public float getScreenWidth() {
+        return screenWidth;
     }
 
-    public static void setWidth(float width) {
-        Bounds.width = width;
+    public void setScreenWidth(float screenWidth) {
+        this.screenWidth = screenWidth;
     }
 
-    public static float getMargin() {
+    public float getMargin() {
         return margin;
     }
 
-    public static void setMargin(float margin) {
-        Bounds.margin = margin;
+    public void setMargin(float margin) {
+        this.margin = margin;
     }
 
-    public static Touching isTouchingBounds(float x1, float x2, float y1, float y2){
-        if (Math.abs(x2 - getWidth()) >= THRESHOLD)
+
+    public int checkTouchingState(MovableBall ball) {
+
+        //float x1, float x2, float y1, float y2
+        float x1 = ball.getX1();
+        float x2 = ball.getX2();
+        float y1 = ball.getY1();
+        float y2 = ball.getY2();
+
+        Integer _result = Bounds.NOONE;
+
+        if( Float.compare(y2, getScreenHeight()) >= 0)
         {
-            return Touching.Right;
+            _result |= Bounds.BOTTOM;
         }
+        //System.out.println("State:::::: " + _result.byteValue());
+        return _result;
     }
-
-    private static float height;
-    private static float width;
-    private static float margin;
-
-
-
 }

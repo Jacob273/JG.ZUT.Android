@@ -1,6 +1,7 @@
 package pl.jg.movingball.helpers;
 
-public enum Touching{
+public enum Touching {
+    None,
     Left,
     Right,
     Top,

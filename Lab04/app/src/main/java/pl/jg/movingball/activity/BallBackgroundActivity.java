@@ -16,15 +16,15 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import pl.jg.movingball.helpers.Ball;
+import pl.jg.movingball.helpers.MovableBall;
 import pl.jg.movingball.helpers.Bounds;
 
 public class BallBackgroundActivity extends Activity implements SensorEventListener
 {
     BallView ball = null;
     ShapeDrawable mDrawable = new ShapeDrawable();
-    public static float sensorValueX;
     public static float sensorValueY;
+    public static float sensorValueX;
 
     private SensorManager sensorManager = null;
 
@@ -42,8 +42,8 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
     {
         {
             if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                sensorValueX = sensorEvent.values[1];
-                sensorValueY = sensorEvent.values[2];
+                sensorValueX = sensorEvent.values[0];
+                sensorValueY = sensorEvent.values[1];
             }
         }
     }
@@ -84,7 +84,7 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
         float lastSensorValueX;
         float lastSensorValueY;
         final double THRESHOLD = .001;
-        private boolean firstDraw = true;
+        private boolean firstTimeDrawn = true;
 
         public int getScreenHeight(){
             DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -106,7 +106,14 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
             mDrawable.setBounds(5, 5, getScreenWidth() - ballHeight, getScreenHeight() - ballHeight);
         }
 
-
+        public boolean hasSensorValueYChanged(float newSensorY){
+            if (Math.abs(newSensorY - lastSensorValueY) > THRESHOLD)
+            {
+                lastSensorValueY = newSensorY;
+                return true;
+            }
+            return false;
+        }
 
         public boolean hasSensorValueXChanged(float newSensorX){
             if (Math.abs(newSensorX - lastSensorValueX) > THRESHOLD)
@@ -117,51 +124,85 @@ public class BallBackgroundActivity extends Activity implements SensorEventListe
             return false;
         }
 
-        public boolean pointsUpwards(float newSensorValueX)
+        public boolean pointingUpwards(float newSensorValueX)
         {
             return newSensorValueX > 0;
         }
 
+        public boolean pointingDownwards(float newSensorValueX)
+        {
+            return newSensorValueX < 0;
+        }
+
+        public boolean pointingRight(float newSensorValueY)
+        {
+            return newSensorValueY < 0;
+        }
+
+        public boolean pointingLeft(float newSensorValueY)
+        {
+            return newSensorValueY > 0;
+        }
 
         protected void onDraw(Canvas canvas)
         {
+            //System.out.println(String.format("sensor wychylenie X: <{%f}>", BallBackgroundActivity.sensorValueX));
+            //System.out.println(String.format("sensor wychylenie Y: <{%f}>", BallBackgroundActivity.sensorValueY));
 
-            System.out.println(String.format("sensor wychylenie X: <{%f}>", BallBackgroundActivity.sensorValueX));
-            System.out.println(String.format("sensor wychylenie Y: <{%f}>", BallBackgroundActivity.sensorValueY));
-
-            if(firstDraw == true)
+            if(firstTimeDrawn == true)
             {
                 setDefaultBallValuesTopLeft();
-                circle = Ball.AsRectf();
+                circle = MovableBall.getInstance().AsRectf();
                 p = new Paint();
                 p.setColor(Color.GREEN);
-                firstDraw = false;
-                Bounds.setMargin(ballHeight);
-                Bounds.setHeight(getScreenHeight());
-                Bounds.setWidth(getScreenWidth());
+                Bounds.getInstance().setMargin(ballHeight);
+                Bounds.getInstance().setScreenHeight(getScreenHeight());
+                Bounds.getInstance().setScreenWidth(getScreenWidth());
+                firstTimeDrawn = false;
+            }
+
+            if(hasSensorValueYChanged(BallBackgroundActivity.sensorValueY))
+            {
+                if(pointingUpwards(BallBackgroundActivity.sensorValueY))
+                {
+                    //System.out.println("Pointing upwards");
+                    MovableBall.getInstance().moveDown(BallBackgroundActivity.sensorValueY);
+                }
+
+                if(pointingDownwards(BallBackgroundActivity.sensorValueY))
+                {
+                    //System.out.println("Pointing downwards");
+                    MovableBall.getInstance().moveUp(BallBackgroundActivity.sensorValueY);
+                }
+
             }
 
             if(hasSensorValueXChanged(BallBackgroundActivity.sensorValueX))
             {
-                if(pointsUpwards(BallBackgroundActivity.sensorValueX))
+                if(pointingRight(BallBackgroundActivity.sensorValueX))
                 {
-                    Ball.moveDown(BallBackgroundActivity.sensorValueX);
-                    circle = Ball.AsRectf();
+                    //System.out.println("Pointing to right");
+                    MovableBall.getInstance().moveRight(BallBackgroundActivity.sensorValueX);
+                }
+
+                if(pointingLeft(BallBackgroundActivity.sensorValueX)) {
+                    //System.out.println("Pointing to left");
+                    MovableBall.getInstance().moveLeft(BallBackgroundActivity.sensorValueX);
                 }
             }
+            circle = MovableBall.getInstance().AsRectf();
+            Bounds.getInstance().checkTouchingState(MovableBall.getInstance());
 
-
-
-            System.out.println(Ball.asString());
+            //System.out.println(MovableBall.getInstance().asString());
             canvas.drawOval(circle, p);
             invalidate();
         }
 
         private void setDefaultBallValuesTopLeft() {
-            Ball.setX1(0);
-            Ball.setY1(0);
-            Ball.setX2(ballWidth);
-            Ball.setY2(ballHeight);
+            MovableBall.getInstance().setX1(0);
+            MovableBall.getInstance().setY1(0);
+            MovableBall.getInstance().setX2(ballWidth);
+            MovableBall.getInstance().setY2(ballHeight);
         }
     }
 
